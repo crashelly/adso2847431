@@ -135,7 +135,7 @@ main{
             width: 200px;
         };
     }
-    menu{
+    menu.menu1{
         display: flex;
         flex-direction: column;
         gap: 1rem;
@@ -170,6 +170,11 @@ main{
     }
     
 }
+#home-icon{
+    color: rgb(255,255,255);
+    width: 40px;
+    height: 40px;
+}
 
 /*-------------------------------------*/
 /* 2 LEVEL*/
@@ -185,6 +190,41 @@ body.mmenu{
 
 
 }
+menu.menu2{
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    text-align: center;
+    a:is(:link , :visited){
+       background:linear-gradient(rgb(255, 5, 5),rgb(0,0,0));
+       /*color trasnpartrent #ff9*/
+        color: var(--color-pri);
+        opacity: 90%;
+        padding: 14px;
+        border-radius: 15px ,15px,15px,15px;
+        align-items: center;
+        width: 200px;
+        display: flex;
+        gap: 1rem;
+        text-decoration: none;
+        padding: 14px;
+        transition :all 0.3s ease-in-out;
+        width: 200px;
+        span{
+            font-size: 1.5rem;
+        }
+
+  
+    }
+    a:is(:hover){
+        background:linear-gradient(rgb(0,0,0), rgba(250, 117, 146,0.29));
+        color: yellow;
+        transform: scale(1.1);
+
+    }
+}
+  
+
 
 
 body.level2{
