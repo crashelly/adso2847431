@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Linux</title>
+    <link rel="stylesheet" href="css/owl.theme.default.min.css">
+    <link rel="stylesheet" href="css/owl.carousel.min.css">
+    <link rel="stylesheet" href="css/styles.css">
+    
+</head>
+<body>
+    <main>
+        <p>hola </p>
+        <!--- Navbar-->
+        <header>
+            <img src="../imgs/tux-logo.png" alt="Isologo">
+            <nav>
+                <div class="nav-options-container"  id="">
+                    <a href="#distribuciones">Distribuciones</a>
+                </div>
+                <div>
+                    <a href="#creadores">Creadores</a>
+                </div>
+                <div >
+                    <a href="#software">Software</a>
+                </div>
+            </nav>
+        </header>
+        <!--- SLIDER-->
+        <section class="slider owl-carousel owl-theme">
+            <img src="../01-responsive-design/images/01-slider-image.png" alt="slider01">
+            <img src="../01-responsive-design/images/01-slider-image.png" alt="slider01">
+            <img src="../01-responsive-design/images/01-slider-image.png" alt="slider01">
+
+        </section>
+    </main>
+    <script src="js/jquery-3.7.1.min.js"></script>
+    <script src="js/owl.carousel.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('.owl-carousel').owlCarousel({
+            loop:true,
+            nav:true,
+            items:1, 
+           /* responsive:{
+                0:{
+                    items:1
+                },
+                600:{
+                    items:3
+                },
+                1000:{
+                    items:5
+                }
+            }*/
+            stagePadding :0,
+        })
+        });
+    </script>
+</body>
+</html>
