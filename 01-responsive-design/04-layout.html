@@ -10,28 +10,96 @@
     
 </head>
 <body>
+    <a name="Home"></a>
     <main>
-        <p>hola </p>
+        <p> </p>
         <!--- Navbar-->
-        <header>
-            <img src="../imgs/tux-logo.png" alt="Isologo">
+        <header ">
+            
+            <a href="#Home"><img src="../imgs/tux-logo.png" name=" alt="Isologo"></a>
             <nav>
                 <div class="nav-options-container"  id="">
-                    <a href="#distribuciones">Distribuciones</a>
+                    <a href="#Distribuciones">Distribuciones</a>
                 </div>
                 <div>
-                    <a href="#creadores">Creadores</a>
+                    <a href="#Creadores">Creadores</a>
                 </div>
                 <div >
-                    <a href="#software">Software</a>
+                    <a href="#Software">Software</a>
                 </div>
             </nav>
         </header>
         <!--- SLIDER-->
-        <section class="slider owl-carousel owl-theme">
-            <img src="../01-responsive-design/images/01-slider-image.png" alt="slider01">
-            <img src="../01-responsive-design/images/01-slider-image.png" alt="slider01">
-            <img src="../01-responsive-design/images/01-slider-image.png" alt="slider01">
+        <section class="slider1 owl-carousel owl-theme">
+            <img src="../01-responsive-design/images/slider/01-slider-image.png" alt="slider01">
+            <img src="#" alt="slider01">
+            <img src="#" alt="slider01">
+        </section>
+        <!--- distribuciones-->
+
+        <section class="distribuciones">
+            <a name="Distribuciones"></a>
+            <h2>Distribuciones</h2>
+            <div class=" slider2 owl-carousel owl-theme">
+                <!-- son 8 articulos de distribuciones-->
+            <!-----Debian -->
+                <article>
+                    <figure>
+                        <a href="#" target="_blank"><img  class="imagen" src="images/distribuciones/debian-logo.png" alt="Debian"></a>
+                        <figcaption> Debian</figcaption>
+                    </figure>
+                </article>
+            <!-----Fedora -->
+                <article>
+                    <figure>
+                        <a href="#" target="_blank"><img class="imagen" src="images/distribuciones/fedora-logo.png"" alt="Fedora"></a>
+                        <figcaption> Fedora</figcaption>
+                    </figure>
+                </article>
+            <!-----Arch Linux -->
+                <article>
+                    <figure>
+                        <a href="#" target="_blank"><img class="imagen"  src="images/distribuciones/arch-logo.png" alt="Arch Linux"></a>
+                        <figcaption> Arch Linux</figcaption>
+                    </figure>
+                </article>
+            <!-----Ubuntu --> 
+                <article>
+                    <figure>
+                        <a href="#" target="_blank"><img class="imagen"  src="images/distribuciones/ubuntu-logo.png" alt="Ubuntu"></a>
+                        <figcaption> Ubuntu</figcaption>
+                    </figure>
+                </article>
+            <!----- CentOS -->
+                <article>
+                    <figure>
+                        <a href="#" target="_blank"><img class="imagen"  src="images/distribuciones/CentOS.png"" alt="CentOS"></a>
+                        <figcaption> CentOS</figcaption>
+                    </figure>
+                </article>
+            <!-----Kali linux -->
+                <article>
+                    <figure>
+                        <a href="#" target="_blank"><img class="imagen"  src="images/distribuciones/kali-linux-logo.png" alt="Kali"></a>
+                        <figcaption> Kali Linux</figcaption>
+                    </figure>
+                </article>
+            <!-----OpenSUSE -->
+                <article>
+                    <figure>
+                        <a href="#" target="_blank"><img class="imagen"  src="images/distribuciones/OpenSUSE-logo.png"" alt="OpenSUSE"></a>
+                        <figcaption> OpenSUSE</figcaption>
+                    </figure>
+                </article>
+            <!-----Red Hat -->
+            <article>
+                <figure>
+                    <a href="#" target="_blank"><img src="#"" alt="Red Hat"></a>
+                    <figcaption> Red Hat Enterprise</figcaption>
+                </figure>
+            </article>
+            <!-- fin de los cuadros-->
+            </div>
 
         </section>
     </main>
@@ -39,24 +107,34 @@
     <script src="js/owl.carousel.min.js"></script>
     <script>
         $(document).ready(function () {
-            $('.owl-carousel').owlCarousel({
+            // SLIDERS ___________
+            $('.slider1').owlCarousel({
             loop:true,
             nav:true,
             items:1, 
-           /* responsive:{
-                0:{
-                    items:1
-                },
-                600:{
-                    items:3
-                },
-                1000:{
-                    items:5
+            stagePadding :0, 
+            })
+        //--------------------------------------
+            $('.slider2').owlCarousel({
+                loop:true,
+                margin :10,
+                /*verificar*/
+                nav:true,
+                dots:true,    
+                responsive:{
+                    0:{
+                        items:1
+                    },
+                    600:{
+                        items:2
+                    },
+                    1000:{
+                        items:4
+                    }
                 }
-            }*/
-            stagePadding :0,
+
+            })
         })
-        });
     </script>
 </body>
 </html>
