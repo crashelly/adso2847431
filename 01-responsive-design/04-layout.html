@@ -100,8 +100,40 @@
             </article>
             <!-- fin de los cuadros-->
             </div>
-
+        </section>  
+        <!--- inicio de la seccion  de creadores-->
+        <section class="creadores">
+            <h2> Creadores</h2>
+            <div class=" slider3 owl-carousel owl-theme">
+            <!--- inicio de los cuadros-->
+                <!-----Linus Torvalds -->
+                <article class="creador-contenedor">
+                    <figure>
+                       <img class="creador-imagen"  id="linus-Torvals" src="images/creadores/Linux_Torvals.png" alt="Linus Torvalds">
+                        <figcaption> Linus Torvalds</figcaption>
+                    </figure>
+                    <section class="creador-informacion-contenedor">
+                        
+                            <h2 class="creador-titulo">¿quien es?</h2>
+                            <div><p>Ingeniero informático finlandés conocido por ser el creador y principal desarrollador del sistema operativo Linux, una plataforma de código abierto utilizada en una amplia variedad de dispositivos. Torvalds es una figura destacada en el mundo de la tecnología y tuvo un impacto significativo en la forma en que se utiliza y desarrolla el software.
+                            
+                            </p></div>
+                    </section>
+                </article>
+                <!---richard stallman-->
+                <article class="creador-contenedor">
+                    <figure>
+                       <img class="creador-imagen" src="images/creadores/richard_ stallman.png" alt="Linus Torvalds">
+                        <figcaption> Richard Stallman</figcaption>
+                    </figure>
+                    <section class="creador-informacion-contenedor">
+                        
+                            <h2 class="creador-titulo">¿quien es?</h2>
+                            <div><p>ipsum debian dolor dolor dolor </p></div>
+                    </section>
+                </article>
         </section>
+    </div>
     </main>
     <script src="js/jquery-3.7.1.min.js"></script>
     <script src="js/owl.carousel.min.js"></script>
@@ -130,6 +162,25 @@
                     },
                     1000:{
                         items:4
+                    }
+                }
+
+            })
+            $('.slider3').owlCarousel({
+                loop:true,
+                margin :10,
+                /*verificar*/
+                nav:true,
+                dots:true,    
+                responsive:{
+                    0:{
+                        items:1
+                    },
+                    600:{
+                        items:1
+                    },
+                    1000:{
+                        items:2
                     }
                 }
 
