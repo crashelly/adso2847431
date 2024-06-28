@@ -38,10 +38,77 @@
        }
        /*inicio del experimento del menu hamburguesa*/
        .menu-icon{
+         width: 100%;
           background-color: #FFF;
           color: #FFF;
        }
-      
+      .nav{
+         background: #000000;
+         height: 80px;
+         color: #FFF;
+      }
+      .nav__container{
+         display: flex;
+         height: 100%;
+         width: 90%;
+         margin:0 auto ;
+         justify-content: space-between;
+         align-items: center;
+      }
+      .nav__label, .nav__input{
+            display: none;
+      }
+     .nav__menu{
+         display: grid;
+         grid-auto-flow:row ;
+         gap:3em;
+         text-decoration: none;
+     }
+
+     .nav__item{
+         color: #FFF;
+         text-decoration: none;
+         --clippy : polygon(0 0, 0 0, 0 97%, 0% 100%);
+     }
+     .nav-item:after{
+         content: '';
+         display: block;
+         background: #FFF;
+         width: 90%;
+         margin-top: 3px;
+         height: 3px;
+         clip-path:var(--clippy) ;
+         transition: clip-path .5s;
+     }
+     .nav-item:hover{
+         --clippy: polygon(0 0, 100% 0, 100% 99%, 0 100%);
+     }
+
+     @media (max-width : 700px){
+      .nav__label{
+         display: block;
+         cursor: pointer;
+      }
+      .nav__menu{
+         position: fixed;
+         top: 80px;
+         bottom: 0;
+         background:#4068A9;
+         width: 100%;
+         left: 0;
+         display: flex;
+         justify-content: space-evenly;
+         flex-direction: column;
+         align-items: center;
+         clip-path :circle(0 at center);
+         z-index : 40;
+         transition: clip-path 1s ease-in-out;
+      } 
+      .nav__input:checked + .nav__menu{
+         clip-path: circle(100% at center);
+      }
+
+     }
 
        /*fin  del experimento*/
        a{ 
