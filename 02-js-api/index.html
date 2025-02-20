@@ -94,6 +94,7 @@
                         <article>
                             <h4>${personaje.name.substring(0,16)}</h4>
                             <h5 class="${personaje.status}">${personaje.status}</h5>
+                            <button  class="btn-show" data-id="${personaje.id}" class="btn-show">Saber mas</button>
                          </article>
                          <img src="${personaje.image}">
                          
@@ -101,7 +102,7 @@
                     `;
                 })
             }
-            
+            addClickEvents();
         }
         
         
@@ -109,14 +110,15 @@
         function addClickEvents(){
             const btnsShow = document.querySelectorAll('.btn-show')
             
-            btnsShow.forEach(e=>{
-                e.addEventListener("click",e=>{
-                    alert(this.getAttribute('data-id'))
+            btnsShow.forEach(element=>{
+                element.addEventListener("click",a =>{
+                    alert(element.getAttribute('data-id'))
                     
                 })
             })
         }
         fetchCharacters();
+        
         </script>
 </body>
 </html>
