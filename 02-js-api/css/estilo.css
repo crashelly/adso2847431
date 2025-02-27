@@ -80,6 +80,10 @@
             --transform: translateY(-100vh);
             --transition: transform.8s;
 
+            h4,h5{
+                z-index: 30;
+            }
+
         }
 
         .modal--show {

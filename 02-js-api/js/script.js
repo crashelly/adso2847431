@@ -1,75 +1,84 @@
-//Ellements
-const characters = document.querySelector('.characters');
-const openModal = document.querySelector('.hero__cta');
-const modal = document.querySelector('.modal');
-const closeModal = document.querySelector('.modal__close');
-var numOfItems = 40;
-//fetch all characters
-const fetchCharacters = async () => {
-    for (let i = 1; i <= numOfItems; i++) {
-        let url = 'https://rickandmortyapi.com/api/character/' + i;
+    // Elements
+    const characters = document.querySelector(".characters");
+    const modal = document.getElementById("characterModal");
+    const modalName = document.getElementById("modalName");
+    const modalImage = document.getElementById("modalImage");
+    const modalStatus = document.getElementById("modalStatus");
+    const modalSpecies = document.getElementById("modalSpecies");
+    const modalGender = document.getElementById("modalGender");
+    const modalOrigin = document.getElementById("modalOrigin");
+    const modalLocation = document.getElementById("modalLocation");
+    const closeModal = document.querySelector(".close");
+
+    // Fetch all characters
+    const fetchCharacters = async () => {
+      for (let i = 1; i <= 40; i++) {
+        let url = "https://rickandmortyapi.com/api/character/" + i;
         await fetch(url)
-            .then((response) => response.json())
-            .then((personaje) => {
-                characters.innerHTML += `
-               <div class="character"> 
-                   <article>
-                       <h4>${personaje.name.substring(0, 16)}</h4>
-                       <h5 class="${personaje.status}">${personaje.status}</h5>
-                       <button  class="btn-show hero__cta"  data-id="${personaje.id}" class="btn-show">Saber mas</button>
-                    </article>
-                    <img src="${personaje.image}">
-                    
-               </div>
-               `;
-            })
+          .then((response) => response.json())
+          .then((data) => {
+            characters.innerHTML +=
+              '<div class="character"> \
+                          <article>\
+                              <h4>' +
+              data.name.substring(0, 16) +
+              '</h4>\
+                              <h5 class="' +
+              data.status +
+              '">' +
+              data.status +
+              '</h5>\
+                              <button class="btn-show" data-id="' +
+              data.id +
+              '"> + info </button>\
+                          </article>\
+                          <img src="' +
+              data.image +
+              '">\
+                      </div>';
+          });
+      }
+      addClickEvents();
+    };
+
+    // Add click events to buttons
+    function addClickEvents() {
+      const btnsShow = document.querySelectorAll(".btn-show");
+      btnsShow.forEach((element) => {
+        element.addEventListener("click", function () {
+          const characterId = this.getAttribute("data-id");
+          fetchCharacterDetails(characterId);
+        });
+      });
     }
-    addClickEvents();
-}
 
+    // Fetch character details and show modal
+    const fetchCharacterDetails = async (id) => {
+      const url = "https://rickandmortyapi.com/api/character/" + id;
+      await fetch(url)
+        .then((response) => response.json())
+        .then((data) => {
+          modalName.textContent = data.name;
+          modalImage.src = data.image;
+          modalStatus.textContent = data.status;
+          modalSpecies.textContent = data.species;
+          modalGender.textContent = data.gender;
+          modalOrigin.textContent = data.origin.name;
+          modalLocation.textContent = data.location.name;
+          modal.style.display = "block";
+        });
+    };
 
+    // Close modal
+    closeModal.addEventListener("click", () => {
+      modal.style.display = "none";
+    });
 
-function addClickEvents() {
-    const btnsShow = document.querySelectorAll('.btn-show')
+    // Close modal when clicking outside of it
+    window.addEventListener("click", (event) => {
+      if (event.target === modal) {
+        modal.style.display = "none";
+      }
+    });
 
-    btnsShow.forEach(element => {
-        element.addEventListener("click", a => {
-            // modal.classList.add('modal--show');
-            // // alert(element.getAttribute('data-id'))
-            fetchSpecificCharacter(element.getAttribute('data-id'));
-            openModal();
-
-        })
-    })
-}
-
-async function fetchSpecificCharacter(idCharacter) {
-    let url = 'https://rickandmortyapi.com/api/character/' + idCharacter;
-    let modal = document.getElementById("modal");
-    await fetch(url)
-        .then((response => response.json))
-        .then((character) => {
-            modal.innerHTML = `
-        <div class="modal__container">
-                <!-- <h2 class="modal__title">${character.name}</h2> -->
-                <img src=${character.image} height="350" width="350" alt="" class="modal__img">
-                <p class="modal__paragraph">Lorem ipsum dolor sit amet consectetur adipisicing elit. Animi repellendus
-                    distinctio quia, ullam facilis harum dicta esse eligendi eaque enim unde similique iure voluptatibus
-                    qui fugit vero reprehenderit veritatis quae!</p>
-                <a href="#" class="modal__close">Cerrar modal</a>
-            </div>
-        
-        `
-        })
-
-
-}
-
-// closeModal.addEventListener('click', (e)=>{
-//     e.preventDefault();
-//     modal.classList.remove('modal--show');
-// });
-
-
-fetchCharacters();
-
+    fetchCharacters();
