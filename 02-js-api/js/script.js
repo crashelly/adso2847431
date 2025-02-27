@@ -30,7 +30,7 @@
               '</h5>\
                               <button class="btn-show" data-id="' +
               data.id +
-              '"> + info </button>\
+              '"> Saber mas </button>\
                           </article>\
                           <img src="' +
               data.image +
@@ -74,7 +74,7 @@
       modal.style.display = "none";
     });
 
-    // Close modal when clicking outside of it
+    // cierra el modal  cuando se clickea en alguna otra parte
     window.addEventListener("click", (event) => {
       if (event.target === modal) {
         modal.style.display = "none";

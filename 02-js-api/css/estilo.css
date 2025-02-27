@@ -1,143 +1,145 @@
-
-        section.characters {
-            display: grid;
-            grid-template-columns: repeat(5, 200px);
-            gap: 1rem;
-
-            div.character {
-                border: 4px solid #ffffff;
-                border-radius: 6px;
-                margin: 4rem 0 5rem 0;
-                position: relative;
-                height: 200px;
-                overflow: hidden;
-                width: 202px;
-
-                article,
-                img {
-                    position: absolute;
-                }
-
-                .Alive {
-                    color: #adff2f
-                }
-
-                .Dead {
-                    color: #dc143c
-                }
-
-                article {
-                    padding: 0.4rem;
-                    width: 194px;
-                    bottom: -60px;
-
-                    background-color: #000c;
-                    z-index: 1;
-                    padding: 0.4rem;
-                    transition: bottom 0.4s ease-in;
-                }
-
-                &:hover article {
-                    bottom: 0;
-                }
-
-                img {
-                    object-fit: cover;
-                }
-            }
+section.characters {
+    display: grid;
+    grid-template-columns: repeat(5, 220px);
+    margin: 2rem 0 5rem 0;
+    gap: 1rem;
+    div.character {
+      border: 4px solid #ff0000;
+      border-radius: 6px;
+      position: relative;
+      overflow: hidden;
+      height: 220px;
+      width: 220px;
+      article,
+      img {
+        position: absolute;
+      }
+      img {
+        object-fit: cover;
+        max-width: 220px;
+      }
+      article {
+        background-color: #000c;
+        z-index: 1;
+        bottom: -100px;
+        padding: 0.4rem;
+        transition: bottom 0.4s ease-in;
+        width: 100%;
+        h4,
+        h5 {
+          color: #fff;
+          text-align: center;
         }
 
-        @media screen and (max-width : 1184px) {
-            section.characters {
-                grid-template-columns: repeat(4, 220px);
-            }
+        .Alive {
+          color: #adff2f;
         }
 
-        @media screen and (max-width : 960px) {
-            section.characters {
-                grid-template-columns: repeat(3, 220px);
-            }
+        .Dead {
+          color: #dc143c;
         }
 
-        @media screen and (max-width : 720px) {
-            section.characters {
-                grid-template-columns: repeat(2, 220px);
-            }
+        .unknown {
+          color: #ff69b4;
         }
+      }
 
-        .modal {
-            z-index: 20;
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-color: #111111bd;
-            display: flex;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity.3s 5s;
-            --transform: translateY(-100vh);
-            --transition: transform.8s;
-
-            h4,h5{
-                z-index: 30;
-            }
-
+      button.btn-show {
+        display: flex;
+        margin-left: 27%;
+        border: solid rgb(0, 0, 0);
+        border-radius: 20px;
+        cursor: pointer;
+        padding: 0.1rem 0.4rem;
+        transition: transform 0.2s ease-in;
+        font-size: 0.8rem;
+        &:hover {
+          transform: scale(1.04);
+          border: rgb(255, 0, 0) solid 3px;
+          color: rgb(255, 89, 0);
+          
         }
+      }
 
-        .modal--show {
-            opacity: 1;
-            pointer-events: unset;
-            transition: opacity.6s;
-            --transform: translateY(0);
-            --transition: transform.8s.8s
-        }
+      &:hover article {
+        bottom: 0;
+      }
+      img {
+        object-fit: cover;
+      }
+    }
+  }
+  @media screen and (max-width: 1190px) {
+    section.characters {
+      display: grid;
+      grid-template-columns: repeat(4, 220px);
+    }
+  }
 
-        .modal__container {
-            margin: auto;
-            width: 90%;
-            max-width: 600px;
-            max-height: 90%;
-            background-color: #ffffff;
-            border-radius: 6px;
-            padding: 3em 2.5em;
-            display: grid;
-            gap: 1em;
-            place-items: center;
-            grid-auto-columns: 100%;
-            transform: var(--transform);
-            transition: var(--transition);
-        }
+  @media screen and (max-width: 960px) {
+    section.characters {
+      display: grid;
+      grid-template-columns: repeat(3, 220px);
+    }
+  }
 
-        .modal__title {
-            font-size: 2.5rem;
-        }
+  @media screen and (max-width: 720px) {
+    section.characters {
+      display: grid;
+      grid-template-columns: repeat(2, 220px);
+    }
+  }
 
-        .modal__paragraph {
-            margin-bottom: 10px;
-        }
+  /* Modal Styles */
+  .modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    /* opacity: 70%; */
+    background-color: rgba(52, 52, 52, 0.8);
+}
+.modal-content {
+    /* border: red dashed 3px; */
+    background-color: #ffffff;
+    margin: 10% auto;
+    padding: 20px;
+    border: 2px solid #e02f2f;
+    width: 80%;
+    max-width: 500px;
+    border-radius: 10px;
+    position: relative;
+    text-align: center;
+    border-radius: 20px;
+    justify-content: first baseline;
 
-        .modal__img {
-            width: 90%;
-            max-width: 300px;
-        }
-
-        .modal__close {
-            text-decoration: none;
-            color: #ffffff;
-            background-color: #f26250;
-            padding: 1em 3em;
-            border: 1px solid;
-            border-radius: 6px;
-            display: inline-block;
-            font-weight: 300;
-            transition: backgroundColor.3s;
-
-        }
-
-        .modal__close:hover {
-            color: #f26250;
-            background-color: #efefef;
-
-        }  
+    .character{
+        justify-content: left;
+        border: #f00000 solid 2px;
+    }
+    p{
+        justify-self: left;
+        margin-left: 27%;
+        margin-top: 10px;
+        color: black;
+    }
+    #modalName{
+        color:rgb(255, 0, 0)
+    }
+  }
+  .close {
+    color: #000000;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+    /* border: solid rgb(63, 62, 62) 2px; */
+    border-radius: 10px;
+  }
+  .close:hover {
+    color: #f00000;
+  }

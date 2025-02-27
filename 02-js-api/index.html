@@ -5,130 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>02-JavaScript (API)</title>
     <link rel="stylesheet" href="/css/master.css" />
-    <style>
-      section.characters {
-        display: grid;
-        grid-template-columns: repeat(5, 220px);
-        margin: 2rem 0 5rem 0;
-        gap: 1rem;
-        div.character {
-          border: 4px solid #fff;
-          border-radius: 6px;
-          position: relative;
-          overflow: hidden;
-          height: 220px;
-          width: 220px;
-          article,
-          img {
-            position: absolute;
-          }
-          img {
-            object-fit: cover;
-            max-width: 220px;
-          }
-          article {
-            background-color: #000c;
-            z-index: 1;
-            bottom: -100px;
-            padding: 0.4rem;
-            transition: bottom 0.4s ease-in;
-            width: 100%;
-            h4,
-            h5 {
-              color: #fff;
-              text-align: center;
-            }
-
-            .Alive {
-              color: #adff2f;
-            }
-
-            .Dead {
-              color: #dc143c;
-            }
-
-            .unknown {
-              color: #ff69b4;
-            }
-          }
-
-          button.btn-show {
-            display: flex;
-            margin-left: 37%;
-            border: none;
-            border-radius: 20px;
-            cursor: pointer;
-            padding: 0.1rem 0.4rem;
-            transition: transform 0.2s ease-in;
-            font-size: 0.8rem;
-            &:hover {
-              transform: scale(1.13);
-            }
-          }
-
-          &:hover article {
-            bottom: 0;
-          }
-          img {
-            object-fit: cover;
-          }
-        }
-      }
-      @media screen and (max-width: 1190px) {
-        section.characters {
-          display: grid;
-          grid-template-columns: repeat(4, 220px);
-        }
-      }
-
-      @media screen and (max-width: 960px) {
-        section.characters {
-          display: grid;
-          grid-template-columns: repeat(3, 220px);
-        }
-      }
-
-      @media screen and (max-width: 720px) {
-        section.characters {
-          display: grid;
-          grid-template-columns: repeat(2, 220px);
-        }
-      }
-
-      /* Modal Styles */
-      .modal {
-        display: none;
-        position: fixed;
-        z-index: 1000;
-        left: 0;
-        top: 0;
-        width: 100%;
-        height: 100%;
-        overflow: auto;
-        background-color: rgba(0, 0, 0, 0.8);
-      }
-      .modal-content {
-        background-color: #000000;
-        margin: 10% auto;
-        padding: 20px;
-        border: 1px solid #ffffff;
-        width: 80%;
-        max-width: 500px;
-        border-radius: 10px;
-        position: relative;
-        text-align: center;
-      }
-      .close {
-        color: #ffffff;
-        float: right;
-        font-size: 28px;
-        font-weight: bold;
-        cursor: pointer;
-      }
-      .close:hover {
-        color: #ffffff;
-      }
-    </style>
+  <link rel="stylesheet" href="css/estilo.css">
   </head>
   <body class="level2">
     <nav>
@@ -160,6 +37,7 @@
           alt="Character Image"
           style="width: 100%; max-width: 200px"
         />
+        <!-- informacion del personaje -->
         <p><strong>Status:</strong> <span id="modalStatus"></span></p>
         <p><strong>Species:</strong> <span id="modalSpecies"></span></p>
         <p><strong>Gender:</strong> <span id="modalGender"></span></p>
@@ -167,8 +45,6 @@
         <p><strong>Location:</strong> <span id="modalLocation"></span></p>
       </div>
     </div>
-    <script src="js/script.js">
-  
-    </script>
+    <script src="js/script.js"></script>
   </body>
 </html>
