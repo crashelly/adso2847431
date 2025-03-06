@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      */
@@ -13,10 +12,17 @@ return new class extends Migration
     {
         Schema::create('adoptions', function (Blueprint $table) {
             $table->id();
-            $table->integer('user_id');
-            $table->string('pet_id');
-            $table->timestamp('created_at');
-            $table->timestamp('updated_at');
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')
+                    ->references('id')
+                    ->on('users');
+                    // ->onDelete('cascade');
+            $table->unsignedBigInteger('pet_id');
+            $table->foreign('pet_id')
+                    ->references('id')
+                    ->on('pets');
+            $table->timestamps();
+           
         });
     }
 
