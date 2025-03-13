@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('document')->unique();
-            $table->string('full name');
+            $table->string('fullname');
             $table->string('gender');
             $table->date('birthdate');
             $table->string('photo')->default('no-photo.png');

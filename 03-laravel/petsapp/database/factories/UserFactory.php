@@ -21,15 +21,78 @@ class UserFactory extends Factory
      *
      * @return array<string, mixed>
      */
+
+    public function saveImage($path ,$gender, $content,) {
+        /**
+         * variables por defecto
+         */
+
+
+         
+         
+        $urls = [
+            'https://avatar-placeholder.iran.liara.run/avatars/male', //url male
+            'https://avatar-placeholder.iran.liara.run/avatars/female' //url female
+            ];
+        $itemNumber  = fake()->random;
+        $imageFolder = "../../../public/images/avatars";
+
+        /**
+         *  condicional que determina el genero
+         */
+        if($gender == 'Male') {
+            $url = $urls[0].$itemNumber;
+            $imageContent = file_get_contents($url.$itemNumber);
+
+            $imagePath =$this->saveImage($imageFolder.'/'.$gender,$gender, $imageContent);
+        }else{
+
+        }
+        file_put_contents($path, $imageContent);
+    }
     public function definition(): array
     {
+      
+        // parte donde descarga las fotos
+      
+       
+        // $maleImages = ['male1.png','male2.png','male3.png','male4.png'];
+     
+
+        $gender = fake()->randomElement(['male','female']);
+      
+
+
+        /**
+         * 
+         * lo que hace la ternaria es decidir apartir del genero
+         * que nombre poner
+         */
+
+        if  ($gender  == 'male') {
+            $nombre  = fake()->firstNameMale();
+           
+
+            
+
+        } else {
+            $url = $urls[1].$itemNumber.'.png';
+            $nombre  = fake()->firstNameFemale();
+            $imageContent = file_get_contents($url);
+
+        
+        }
+
         return [
-            'name' => fake()->name(),
-            'email' => fake()->unique()->safeEmail(),
-            'email_verified_at' => now(),
-            'password' => static::$password ??= Hash::make('password'),
-            'remember_token' => Str::random(10),
+            'document' => fake()->unique()->numerify('##########'),
+            'fullname' => $nombre.' '.fake()->lastName(),
+            'gender' => $gender,
+            'birthdate' => fake()->date(),
+            'phone' => fake()->numerify('##########'),
+            'email'=> fake()->unique()->email(),
+            'password'=>'12345'
         ];
+
     }
 
     /**
