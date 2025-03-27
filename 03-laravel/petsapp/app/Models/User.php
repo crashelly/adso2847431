@@ -26,7 +26,7 @@ class User extends Authenticatable
         'photo',
         'phone',
         'email',
-        'password',
+        'pasword',
         'role'
     ];
 
@@ -35,9 +35,7 @@ class User extends Authenticatable
      *
      * @var list<string>
      */
-
     protected $hidden = [
-        'document',
         'password',
         'remember_token',
     ];
@@ -53,6 +51,12 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+
+    //relationShip: user hasMany Adoption
+    public function adoptions(){
+        return $this->hasMany(Adoption::class);
     }
 
     /**

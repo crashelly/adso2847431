@@ -6,13 +6,17 @@ use Illuminate\Database\Eloquent\Model;
 
 class Adoption extends Model
 {
-    /**
-     * estos son los datos que nesecita la clase Adoption para fucionar
-     * @var array
-     */
     protected $fillable = [
         'user_id',
-        'pet_id',
-       
+        'pet_id'
     ];
+
+    // relationShip: adoption belongsTo User
+    public function user(){
+        return $this->belongsTo(User::class);
+    }
+    // relationShip: adoption belongsTo pet
+    public function pet(){
+        return $this->belongsTo(pet::class);
+    }
 }
