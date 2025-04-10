@@ -19,18 +19,26 @@
                 <div class="modal-action">
                     <div class="card bg-base-100 w-96 shadow-sm">
                         <figure>
-                            <img src="{{ asset('images/' . $pet->image) }}"
-                                alt=" {{ $pet->name }}" width="130px" height="130px" />
+                            <img src="{{ asset('images/' . $pet->image) }}" alt=" {{ $pet->name }}" width="130px"
+                                height="130px" />
                         </figure>
                         <div class="card-body">
                             <h2 class="card-title">
                                 {{ $pet->name }}
                                 <div class="badge badge-secondary">{{ $pet->kind }}</div>
                             </h2>
-                 
-                            <div class="card-actions justify-end">
-                                <div class="badge badge-outline">Fashion</div>
-                                <div class="badge badge-outline">Products</div>
+
+                            <div class="card-actions justify-center">
+                                <div class="text-left ">
+                                    <p><strong>Nombre:</strong> <span id="modalName">{{$pet->name}} </span></p>
+                                    <p><strong>Tipo:</strong> <span id="modalKind">{{ $pet->kind }}</span></p>
+                                    <p><strong>Peso:</strong> <span id="modalWeight">{{ $pet->weight }}</span></p>
+                                    <p><strong>Edad:</strong> <span id="modalAge">{{ $pet->age }}</span></p>
+                                    <p><strong>Raza:</strong> <span id="modalBreed">{{ $pet->breed }}</span></p>
+                                    <p><strong>Ubicación:</strong> <span id="modalLocation">{{ $pet->location }}</span></p>
+                                    <p><strong>Descripción:</strong> <span
+                                            id="modalDescription">{{ $pet->description }}</span></p>
+                                </div>
                             </div>
                         </div>
                         <form method="dialog">
@@ -48,4 +56,5 @@
 <script>
     my_modal_1.showModal();
 </script>
+
 </html>
