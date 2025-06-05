@@ -1,14 +1,18 @@
 {{-- <x-guest-layout>
-    <!-- Session Status -->
-    <x-auth-session-status class="mb-4" :status="session('status')" />
-
-    <form method="POST" action="{{ route('login') }}">
+    <form method="POST" action="{{ route('register') }}">
         @csrf
 
-        <!-- Email Address -->
+        <!-- Name -->
         <div>
+            <x-input-label for="name" :value="__('Name')" />
+            <x-text-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus autocomplete="name" />
+            <x-input-error :messages="$errors->get('name')" class="mt-2" />
+        </div>
+
+        <!-- Email Address -->
+        <div class="mt-4">
             <x-input-label for="email" :value="__('Email')" />
-            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus autocomplete="username" />
+            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autocomplete="username" />
             <x-input-error :messages="$errors->get('email')" class="mt-2" />
         </div>
 
@@ -19,28 +23,27 @@
             <x-text-input id="password" class="block mt-1 w-full"
                             type="password"
                             name="password"
-                            required autocomplete="current-password" />
+                            required autocomplete="new-password" />
 
             <x-input-error :messages="$errors->get('password')" class="mt-2" />
         </div>
 
-        <!-- Remember Me -->
-        <div class="block mt-4">
-            <label for="remember_me" class="inline-flex items-center">
-                <input id="remember_me" type="checkbox" class="rounded dark:bg-gray-900 border-gray-300 dark:border-gray-700 text-indigo-600 shadow-sm focus:ring-indigo-500 dark:focus:ring-indigo-600 dark:focus:ring-offset-gray-800" name="remember">
-                <span class="ms-2 text-sm text-gray-600 dark:text-gray-400">{{ __('Remember me') }}</span>
-            </label>
+        <!-- Confirm Password -->
+        <div class="mt-4">
+            <x-input-label for="password_confirmation" :value="__('Confirm Password')" />
+
+            <x-text-input id="password_confirmation" class="block mt-1 w-full"
+                            type="password"
+                            name="password_confirmation" required autocomplete="new-password" />
+
+            <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
         </div>
 
         <div class="flex items-center justify-end mt-4">
-            @if (Route::has('password.request'))
-                <a class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800" href="{{ route('password.request') }}">
-                    {{ __('Forgot your password?') }}
-                </a>
-            @endif
+            
 
-            <x-primary-button class="ms-3">
-                {{ __('Log in') }}
+            <x-primary-button class="ms-4">
+                {{ __('Register') }}
             </x-primary-button>
         </div>
     </form>
@@ -51,12 +54,12 @@
 @section('title', 'Login - PetsApp')
 @section('content')
     @include('layouts.navbar')
-    <form method="post" action="{{ route('login') }}">
+    <form method="post" action="{{ route('register') }}" class="pt-30 pb-20">
         @csrf
-        <fieldset class="fieldset flex flex-row  w-sm bg-base-200 border border-base-300 p-4 rounded-box">
+        <fieldset class="fieldset w-md bg-base-200 border border-base-300 p-4 rounded-box">
                 <h1 class="text-2xl text-center flex justify-center items-center gap-2">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 1 0-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 0 0 2.25-2.25v-6.75a2.25 2.25 0 0 0-2.25-2.25H6.75a2.25 2.25 0 0 0-2.25 2.25v6.75a2.25 2.25 0 0 0 2.25 2.25Z" />
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M17.982 18.725A7.488 7.488 0 0 0 12 15.75a7.488 7.488 0 0 0-5.982 2.975m11.963 0a9 9 0 1 0-11.963 0m11.963 0A8.966 8.966 0 0 1 12 21a8.966 8.966 0 0 1-5.982-2.275M15 9.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
                     </svg> 
                     Register
                 </h1>
@@ -70,42 +73,40 @@
                         @endforeach
                     </div>
                 @endif
-                <label class="fieldset-label">document</label>
-                <input type="number" name="document" class="input rounded-full" placeholder="78453422" />
-                
-                <label class="fieldset-label">fullname</label>
-                <input type="text" name="fullname" class="input rounded-full" placeholder="Jose Rodriguez Pedraza" />
-                
-                
-                <label class="fieldset-label">gender</label>
-                <!-- <input type="text" name="gender" class="input rounded-full" placeholder="Password" /> -->
-                <select name="geneder" class="select"  id="gender">
-                    <option value="">Elige una</option>
-                    <option value=""></option>
-                    <option value=""></option>
-                </select>
-                
-                <label class="fieldset-label">birthdate</label>
-                <input type="date" name="birthdate" class="input rounded-full" placeholder="Password" />
-                
-                
-                <label class="fieldset-label">phone</label>
-                <input type="number" name="phone" class="input rounded-full" placeholder="3445512312" />
-                
-                
-                <label class="fieldset-label">Email</label>
-                <input type="emaul" name="email" class="input rounded-full" placeholder="prueba@gmail.com" />
-                
-                
-                <label class="fieldset-label">Password</label>
-                <input type="text" name="password" class="input rounded-full" placeholder="Password" />
-                
-                
-                <label class="fieldset-label">Password</label>
-                <input type="text" name="password" class="input rounded-full" placeholder="Password" />
-                
+                <label class="fieldset-label">Document:</label>
+                <input type="number" name="document" class="input rounded-full w-full" placeholder="75000001" value="{{ old('document') }}" />
 
-                <button class="btn mt-4 rounded-full text-white bg-cyan-800">Register</button>
+                <label class="fieldset-label">FullName:</label>
+                <input type="text" name="fullname" class="input rounded-full w-full" placeholder="John Wick" value="{{ old('fullname') }}"/>
+
+                <label class="fieldset-label">Gender:</label>
+                <select name="gender" class="select rounded-full w-full">
+                    <option value="">Select Gender...</option>
+                    <option value="Female" @if(old('gender')=='Female') selected @endif>Female</option>
+                    <option value="Male" @if(old('gender')=='Male') selected @endif>Male</option>
+                </select>
+
+                <label class="fieldset-label">BirthDate:</label>
+                <input type="date" name="birthdate" class="input rounded-full w-full" value="{{ old('birthdate') }}"/>
+
+                <label class="fieldset-label">Phone:</label>
+                <input type="text" name="phone" class="input rounded-full w-full" placeholder="3210000001" value="{{ old('phone') }}"/>
+
+                <label class="fieldset-label">Email:</label>
+                <input type="email" name="email" class="input rounded-full w-full" placeholder="jwick@mail.com" value="{{ old('email') }}"/>
+                
+                <label class="fieldset-label">Password:</label>
+                <input type="password" name="password" class="input rounded-full w-full" placeholder="secret" />
+
+                <label class="fieldset-label">Confirm Password:</label>
+                <input type="password" name="password_confirmation" class="input rounded-full w-full" placeholder="secret" />
+                
+                <button class="btn mt-4 p-6 rounded-full text-white bg-cyan-800 w-full">Register</button>
+
+                <a class="underline mt-2 text-sm text-cyan-800 hover:text-cyan-900 rounded-md focus:outline-none" href="{{ route('login') }}">
+                    {{ __('Already registered?') }}
+                </a>
+
         </fieldset>
     </form>
 @endsection

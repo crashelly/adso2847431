@@ -1,87 +1,101 @@
 <?php
 
-use Illuminate\Support\Facades\App;
+use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
-use Livewire\Volt\Volt;
 use App\Models\User as User;
-use App\Models\Pet as Pet;
-use Carbon\Carbon as Carbon;
+
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+
+use App\Http\Controllers\UserController;
+//use App\Http\Controllers\PetController;
+//use App\Http\Controllers\AdoptionController;
 
 Route::get('/', function () {
     return view('welcome');
-})->name('home');
+});
 
-//list all users (Factory challenge
-Route::get('show/users', function () {
+// List All Users (Factory Challenge)
+Route::get('show/users', function() {
     $users = User::all();
-   //d($users->toArray());
+    //dd($users->toArray());
     return view('users-factory')->with('users', $users);
 });
 
-Route::get('show/Pets', function(){
-    $pets = Pet::all();
-    dd($pets);
-})->name('Pets');
+Route::get('hello', function() {
+    //echo "Hello from Laravel";
+    return "<h1>Hello Laravel ❤️</h1>";
+})->name('hello');
 
-Route::get('hello', function(){
-    return "<h1>Hello ruta</h1>";
-})->name('helloMensagge');
+Route::get('show/pets', function() {
+    $pets = App\Models\Pet::all();
+    //var_dump($pets->toArray());
+    dd($pets->toArray());
+});
 
-// mostrando datos de los 20 primeros usuarios
-Route::get('show/info/users',function (){
-    $usersInfo = User::select('fullname', 'birthdate', 'created_at')->take(20)->get();
-    $html = '<table border="1" style=""border-collapse: collapse; width: 50%; margin: 20px auto; border: 1px solid #ddd; font-family: Arial, sans-serif;">
-                <tr style="background-color: #f0f0f0; color: #333;">
-                    <td style="padding: 10px; border: 1px solid #ddd;">Nombre completo</td>
-                    <td style="padding: 10px; border: 1px solid #ddd;">Edad </td>
-                    <td style="padding: 10px; border: 1px solid #ddd;">Creado hace</td>
-                </tr>';
-    foreach ($usersInfo as $user){
-        // sacando la edad
-        $bithD = $user->birthdate;
-        $birthArr = explode('-',$bithD);
-        $age = Carbon::createFromDate(intval($birthArr[0]), intval($birthArr[1]),intval($birthArr[2]))->age;
-        
-        // dd($age);
-        // <td>'.$user->created_at->diffForHumans().'</td>
-        // dd($user->fullname,$user->birthdate);
-        // echo '<"h1">'.$user->fullname." ".$user->birthdate." ".$user->created_at." <h1>";
-        $html .= '<tr style="background-color: #f0f0f0; color: #333;">';
-        $html .=   '<td style="padding: 10px; border: 1px solid #ddd;">'.$user->fullname.'</td>';
-        $html .=   '<td style="padding: 10px; border: 1px solid #ddd;">'. $age.' años</td>';
-        $html .=   '<td style="padding: 10px; border: 1px solid #ddd;">'.$user->created_at->diffForHumans().'</td>';
-        $html .= '</tr>';
+Route::get('/challenge/users', function() {
+    $users = User::limit(20)->get();
+    //dd($users->toArray());
+    $code = "<table style='border-collapse: collapse; margin: 2rem auto; font-family: Arial'>
+                <tr>
+                    <th style='background: gray; color: white; padding: 0.4rem'>Id</th>
+                    <th style='background: gray; color: white; padding: 0.4rem'>Fullname</th>
+                    <th style='background: gray; color: white; padding: 0.4rem'>Age</th>
+                    <th style='background: gray; color: white; padding: 0.4rem'>Created At</th>
+                </tr>";
+    foreach($users as $user) {
+        $code .= ($user->id%2 == 0) ? "<tr style='background: #ddd'>" : "<tr>";
+        $code .=    "<td style='border: 1px solid gray; padding: 0.4rem'>".$user->id."</td>";
+        $code .=    "<td style='border: 1px solid gray; padding: 0.4rem'>".$user->fullname."</td>";
+        $code .=    "<td style='border: 1px solid gray; padding: 0.4rem'>".Carbon\Carbon::parse($user->birthdate)->age." years old</td>";
+        $code .=    "<td style='border: 1px solid gray; padding: 0.4rem'>".$user->created_at->diffForHumans()."</td>";
+        $code .= "</tr>";
     }
-    return $html . '</table>';
+    return $code . "</table>";
 });
 
-Route::get('/view/blade' ,function (){
-    $title = "Examples blade";
-    $pets = Pet::whereIn('kind',['cat','dog'])->get();
+
+Route::get('view/blade', function() {
+    $title = "Examples Blade";
+    $pets  = App\Models\Pet::whereIn('kind', ['dog', 'cat'])->get();
+
     return view('example-view')
-    ->with('title',$title)
-    ->with('pets',$pets); 
+         ->with('title', $title)
+         ->with('pets', $pets);
 });
 
-// ruta para obtener informacion sobre la mascota
-Route::get('/show/info/pet/{id}',function (string $Id){
-    $petId = $Id;
-    // hago la consulta de la mascota
-    $pet = Pet::where('id',$petId)->get();
-// dd($pet);
-    return  view('pet-info') ->with('pets', $pet);
+
+Route::get('show/pet/{id}', function() {
+    $pet = App\Models\Pet::find(request()->id);
+    //dd($pet->toArray());
+    return view('show-pet')->with('pet', $pet);
 });
 
-Route::view('dashboard', 'dashboard')
-    ->middleware(['auth', 'verified'])
-    ->name('dashboard');
 
-Route::middleware(['auth'])->group(function () {
-    Route::redirect('settings', 'settings/profile');
+Route::get('/dashboard', function (Request $request) {
 
-    Volt::route('settings/profile', 'settings.profile')->name('settings.profile');
-    Volt::route('settings/password', 'settings.password')->name('settings.password');
-    Volt::route('settings/appearance', 'settings.appearance')->name('settings.appearance');
+    if (Auth::user()->role == 'Admin') {
+        return view('dashboard-admin');
+    } else if (Auth::user()->role == 'Customer') {
+        return view('dashboard-customer');
+    } else {
+        Auth::guard('web')->logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+        return redirect()->back()->with('error', 'Role no exist!');
+    }
+    
+})->middleware(['auth', 'verified'])->name('dashboard');
+
+
+Route::middleware('auth')->group(function () {
+
+    Route::resources([
+        'users'     => UserController::class,
+        //'pets'      => PetController::class,
+        //'adoptions' => UserController::class,
+    ]);
+    
 });
 
 require __DIR__.'/auth.php';
