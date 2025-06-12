@@ -1,16 +1,16 @@
 @extends('layouts.app')
-@section('title', 'Welcome Pets App')
+@section('title', 'Welcome - PetsApp')
 
 @section('content')
     <div class="card bg-base-100 w-96 shadow-sm">
         <figure class="h-[360px]">
           <img
-            src="{{ asset('images/welcome.webp') }}"
+            src="{{ asset('images/welcome.png') }}"
             alt="Shoes" />
         </figure>
         <div class="card-body">
           <h2 class="card-title">Welcome PetsApp</h2>
-          <p>Pet adoption app connecting shelters with loving homes. Browse, match, and adopt pets easily. Find your perfect furry friend today!</p>
+          <p>PetsApp is a user-friendly mobile application designed to help connect people with animals in need of a loving home. Whether you're looking to adopt a dog, cat, or another furry friend, PetsApp makes the process simple and accessible. Users can browse available pets, view detailed profiles with photos and personality traits, and get in touch with shelters or current owners directly through the app. PetsApp promotes responsible pet adoption and aims to give every animal a second chance at a happy life.</p>
           <div class="card-actions justify-center mt-5">
             @auth
             <a href="{{ route('dashboard') }}" class="btn bg-cyan-800 text-white rounded-full w-[140px]">

@@ -93,7 +93,7 @@ Route::middleware('auth')->group(function () {
     Route::resources([
         'users'     => UserController::class,
         //'pets'      => PetController::class,
-        //'adoptions' => UserController::class,
+        //'adoptions' => AdoptionController::class,
     ]);
     
 });

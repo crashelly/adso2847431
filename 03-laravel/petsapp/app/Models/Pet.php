@@ -5,9 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
+
 class Pet extends Model
 {
     use HasFactory;
+
     protected $fillable = [
         'name',
         'image',
@@ -18,8 +20,9 @@ class Pet extends Model
         'location',
         'description'
     ];
-    // relationShip: pet hasOne Adoption
-    public function adoption(){
+
+    // RelationShip: Pet hasOne Adoption
+    public function adoption() {
         return $this->hasOne(Adoption::class);
     }
 }

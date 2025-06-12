@@ -32,13 +32,13 @@
         <ul class="flex items-center gap-2">
             <li>
                 <div class="avatar">
-                    <div class="mask mask-squircle w-8">
+                    <div class="mask mask-squircle w-12">
                         <img src="{{ asset('images/'.Auth::user()->photo) }}" />
                     </div>
                 </div> 
             </li>
             <li>
-                <span class="badge text-white border-cyan-800 bg-cyan-800">Admin: {{ Auth::user()->fullname }}</span>
+                <span class="badge text-white border-cyan-800 bg-orange-500">Admin: {{ Auth::user()->fullname }}</span>
             </li>
             <li>
                 <details class="dropdown dropdown-end">
@@ -47,7 +47,7 @@
                             <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
                         </svg>
                     </summary>
-                    <ul class="menu dropdown-content bg-cyan-800 rounded-box z-1 w-52 p-2 shadow-sm">
+                    <ul class="menu dropdown-content bg-orange-500 rounded-box z-1 w-52 p-2 shadow-sm">
                         @if (Auth::user()->role == 'Admin')
                         <li>
                             <a href="{{ url('users') }}">

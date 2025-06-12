@@ -18,7 +18,7 @@
     <div class="stat-desc">
         {{ App\Models\User::count() }} records
     </div>
-    <a class="btn bg-cyan-800 text-white rounded-full mt-4" href="{{ url('users') }}">
+    <a class="btn bg-orange-700 text-white rounded-full mt-4" href="{{ url('users') }}">
         More Info
     </a>
   </div>
@@ -40,7 +40,7 @@
     <div class="stat-desc">
         {{ App\Models\Pet::count() }} records
     </div>
-    <a class="btn bg-cyan-800 text-white rounded-full mt-4" href="{{ url('pets') }}">
+    <a class="btn bg-orange-700 text-white rounded-full mt-4" href="{{ url('pets') }}">
         More Info
     </a>
   </div>
@@ -56,7 +56,7 @@
     <div class="stat-desc">
         {{ App\Models\Adoption::count() }} records
     </div>
-    <a class="btn bg-cyan-800 text-white rounded-full mt-4" href="{{ url('adoptions') }}">
+    <a class="btn bg-orange-700 text-white rounded-full mt-4" href="{{ url('adoptions') }}">
         More Info
     </a>
   </div>
