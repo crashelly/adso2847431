@@ -1,0 +1,79 @@
+class User {
+
+    constructor() {
+        this.pokemonLimiter = 10;
+    }
+    /**
+     * sirve para sacar las generaciones automaticamente
+     */
+    renderGenerations = () => {
+        Page.API.getGenerations()
+            .then((generations) => {
+
+                let generationsSelect = document.getElementById('generationsSelect');
+                let generationCounter = 1;
+                generations.results.forEach(generation => {
+                    console.log(generation);
+                    generationsSelect.innerHTML += `<option value="${generationCounter}">${generation.name}</option>`;
+                    generationCounter++;
+                });
+            });
+    }
+    /**
+     * muestra las generaciones de pokemon
+     * @param {*} generation 
+     */
+    renderPokemonCardsByGeneration(generation) {
+
+        // limpiamos el contenedor de todos los pokemons
+         document.getElementById('pokemonsCardContainer').innerHTML = '';
+
+        Page.API.getGeneration(generation)
+            .then((generation) => {
+                let counter = 1;
+                // por cada pokemonque encuentra busca al pokemon de esa especie
+                generation.pokemon_species.forEach((pokemon) => {
+                    console.log("subiendo contador" + counter);
+                    if (counter < this.pokemonLimiter) {
+                        // busca al pokemon
+                        Page.API.getPokemon(pokemon.name)
+                            .then((pokemon) => {
+                                // inyecto generation de ese pokemon
+                                pokemon.generation = generation.name;
+                                console.log(pokemon);
+
+                                // subo el contador 
+                                
+                                Page.renderPokemonCars(pokemon);
+                            });
+                            counter++;
+                    } else {
+                        console.error('limite alcanzado');
+                    }
+
+                });
+            });
+
+
+    }
+
+    // test() {
+    //     // aca renderiza genracion
+    //     Page.API.getGeneration('1')
+    //         .then((generation) => {
+    //             // por cada pokemonque encuentra busca al pokemon de esa especie
+    //             generation.pokemon_species.forEach((pokemon) => {
+    //                 // busca al pokemon
+    //                 Page.API.getPokemon(pokemon.name)
+    //                     .then((pokemon) => {
+    //                         // inyecto generation de ese pokemon
+    //                         pokemon.generation = generation.name;
+    //                         console.log(pokemon);
+
+
+    //                         Page.renderPokemonCars(pokemon);
+    //                     });
+    //             });
+    //         });
+    // }
+}
