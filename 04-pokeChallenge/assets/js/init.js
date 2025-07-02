@@ -6,4 +6,5 @@ const user = new User();
 // user.renderPokemonCardsByGeneration('nose');
 // user.test();
 user.renderGenerations();
+// pokemonFormModal.showModal();
 // user.renderPokemonCardsByGeneration('2');

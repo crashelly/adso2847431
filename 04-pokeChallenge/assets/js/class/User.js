@@ -26,7 +26,7 @@ class User {
     renderPokemonCardsByGeneration(generation) {
 
         // limpiamos el contenedor de todos los pokemons
-         document.getElementById('pokemonsCardContainer').innerHTML = '';
+        document.getElementById('pokemonsCardContainer').innerHTML = '';
 
         Page.API.getGeneration(generation)
             .then((generation) => {
@@ -43,10 +43,10 @@ class User {
                                 console.log(pokemon);
 
                                 // subo el contador 
-                                
+
                                 Page.renderPokemonCars(pokemon);
                             });
-                            counter++;
+                        counter++;
                     } else {
                         console.error('limite alcanzado');
                     }
@@ -55,8 +55,24 @@ class User {
             });
 
 
+
+
     }
 
+    showPokemonForm = (formUrl) => {
+        Page.API.getDataFromApi(formUrl)
+            .then((form) => {
+                document.getElementById('formName_modal').textContent = form.pokemon.name;
+                document.getElementById('frontDescription_modal').textContent = form.name;
+                document.getElementById('behindDescription_modal').textContent = form.name;
+                // imagenes
+                document.getElementById('frontFormImage').src = form.sprites.front_default;
+                document.getElementById('backFormImage').src = form.sprites.back_default;
+
+                // muestra el modal despuesd de cuadrar todo
+                pokemonFormModal.showModal();
+            });
+    }
     // test() {
     //     // aca renderiza genracion
     //     Page.API.getGeneration('1')

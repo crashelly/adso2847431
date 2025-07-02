@@ -5,12 +5,24 @@ class Page {
      */
 
     static API = {
+        getDataFromApi : (url) => {
+            return new Promise((resolve, reject) => {
+                fetch(url)
+                    .then(response => response.json())
+                    .then(data => {
+                        resolve(data);
+                    })
+                    .catch(error => {
+                        reject(error);
+                    })
+            });
+        },
         /**
          * obtener info del pokemon
          * @param {*} es el paramemtro que puede ser un numero el el nombre del pokemoin
          * @returns data
          */
-        getPokemon: (param) => {
+        getPokemon : (param) => {
             return new Promise((resolve, reject) => {
                 fetch(`https://pokeapi.co/api/v2/pokemon/${param}`)
                     .then((response) => response.json())
@@ -273,7 +285,7 @@ class Page {
     static renderPokemonCars(data) {
         let container = document.getElementById('pokemonsCardContainer');
         // container.innerHTML = ''; 
-       
+
         let pokemon = data;
         let htmlCode = ''
         htmlCode = `
@@ -356,21 +368,55 @@ class Page {
                     </p>
                 </div>
                 <!-- List Tags -->
-                <h2 class="font-bold text-lg px-6">Types:</h2>
-                <ul class="flex flex-wrap gap-2 px-6 py-2 border-b">
+                <h2 class="font-bold text-lg px-6">Abilities:</h2>
+                <ul class="flex flex-wrap gap-2 px-6 py-2 ">
 
                 `;
         let counter = 0;
-        pokemon.types.forEach(element => {
+        pokemon.abilities.forEach(pokemon => {
 
             if (counter % 2 == 0) {
-                htmlCode += `<li class="rounded-lg border hover:bg-blue-400 hover:text-white duration-300    border-gray-500 px-2 py-1 text-xs font-bold">
+                htmlCode += `<li class="rounded-lg  hover:bg-gray-200 hover:text-white duration-300     px-2 py-1 text-xs font-bold">
                                
-                                    <div class="badge bage-outline badge-warning">${element.type.name}</div>
+                                    <div class="badge badge-outline badge-warning">${pokemon.ability.name}</div>
                                 </li>`;
             } else {
-                htmlCode += `<li class="rounded-lg hover:bg-red-400 hover:text-white    border border-gray-500 px-2 py-1 text-xs font-bold">
-                                    <div class="badge badge-outline badge-success">${element.type.name}</div>
+                htmlCode += `<li class="rounded-lg hover:bg-gray-200 hover:text-white     px-2 py-1 text-xs font-bold">
+                                    <div class="badge badge-outline badge-success">${pokemon.ability.name}</div>
+                                </li>`;
+            }
+            counter++;
+        });
+        htmlCode += `
+                </ul>
+                <!-- List Tags -->
+                <h2 class="font-bold text-lg px-6">Forms:</h2>
+                <ul class="flex flex-wrap gap-2 px-6 py-2 ">
+
+                `;
+        // ahora es la dde las formas
+        let counterForms = 0;
+        pokemon.forms.forEach(form => {
+            // aca toca buscar la imagen de esa forma de pokemon
+            if (counterForms % 2 == 0) {
+                // buscando la imagen de la forma del pokemon
+            // this.API.getDataFromApi(form.url).then((form) => {
+            //     var  formImageUrl = form.sprites.front_default;
+            //     });
+
+
+             htmlCode += `<li class="rounded-lg  hover:bg-gray-200 hover:text-white duration-300     px-2 py-1 text-xs font-bold">
+                               <div class="flex flex-col">
+                                
+                              <a onclick="user.showPokemonForm('${form.url}')"> 
+                              <div class="badge  badge-primary">${form.name}</div>
+                              </a>
+                          
+                            </div>
+                                </li>`;
+            } else {
+                htmlCode += `<li class="rounded-lg hover:bg-gray-200 hover:text-white     px-2 py-1 text-xs font-bold">
+                                    <div class="badge  badge-info">${form.name}</div>
                                 </li>`;
             }
             counter++;
@@ -381,23 +427,23 @@ class Page {
 
                 <div class="flex justify-between" >
                     <div class="w-full px-6 pt-2 flex gap-1 pb-2" id="typesContainer" > `;
-                       
- // contenedor de esos tipos de pokemon
-                   
 
-            pokemon.types.forEach(element => {
-                htmlCode += `
+        // contenedor de esos tipos de pokemon
+
+
+        pokemon.types.forEach(element => {
+            htmlCode += `
                  
-                        <div class="w-8 h-8 aspect-square  text-white hover:bg-blue-700   rounded-full flex justify-center items-center">
+                        <div class="w-8 h-8 aspect-square  text-white hover:bg-gray-200   rounded-full flex justify-center items-center">
                       <div class="icon  ${element.type.name}">
 <img src="assets/icons/${element.type.name}.svg" alt="" />
                         </div>
                      </div>
                 
                 `
-            });
+        });
 
-            htmlCode += `
+        htmlCode += `
                     </div>
                     </div>
                     <div class="bg-black/90 text-white flex items-center px-2 rounded-tl-3xl rounded-br-3xl">
