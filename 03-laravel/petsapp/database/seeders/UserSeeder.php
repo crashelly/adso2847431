@@ -15,11 +15,11 @@ class UserSeeder extends Seeder
     {
         $user = new User;
         $user->document  = 75000001;
-        $user->fullname  = 'John Wick';
+        $user->fullname  = 'Mr robot';
         $user->gender    = 'Male';
         $user->birthdate = '1984-10-12';
         $user->phone     = 3205673456;
-        $user->email     = 'jwick@mail.com';
+        $user->email     = 'admin@gmail.com';
         $user->password  = bcrypt('admin');
         $user->role      = 'Admin';
         $user->save();

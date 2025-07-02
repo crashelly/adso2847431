@@ -21,6 +21,12 @@ Route::get('show/users', function() {
     //dd($users->toArray());
     return view('users-factory')->with('users', $users);
 });
+// List the users info for
+Route::get('edit/user/{id}', function() {
+    $user = User::find(request()->id);
+    //dd($users->toArray());
+    return view('users.edit')->with('user', $user);
+});
 // // eliminate a user
 Route::delete('delete/user/{id}', function (){
     $user = User::find(request()->id);
