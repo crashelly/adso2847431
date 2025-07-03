@@ -1,25 +1,53 @@
 class Page {
     // escopnde las imagenes que sale al principio
-    static hideWelcomeImages(){
+    static hideWelcomeImages() {
         document.querySelectorAll('.welcomeImage').forEach(welcomeImage => {
-           welcomeImage.style.display = 'none'; 
+            welcomeImage.style.display = 'none';
         });
     }
 
-/**
- * muestra informaicon de que un pokemon no fue encontrado
- * @param {*} mesagge 
- */
-    static pokemonNotFound(mesagge=null){
+    /**
+     * muestra informaicon de que un pokemon no fue encontrado
+     * @param {*} mesagge 
+     */
+    static pokemonNotFound(mesagge = null) {
 
         pokemonNotFoundModal.showModal();
+    }
+
+    /**
+     * condensa la informaciond e las estadisticas del pokemon
+     * 
+     * @param {*} data todos los datos del pokemon
+     */
+    static renderStatsOfPokemon(pokemon) {
+
+        // Nombre del pokemon
+        document.getElementById('stats_pokemonName').textContent = pokemon.name;
+        // imagen del pokemon
+        document.getElementById('stats_pokemonImage').src = pokemon.sprites.other.showdown.front_default;;
+
+        // hp
+        document.getElementById('stats_hp').textContent = pokemon.stats[0].base_stat;
+        // ataque
+        document.getElementById('stats_attack').textContent = pokemon.stats[1].base_stat;
+        // defensa
+        document.getElementById('stats_defense').textContent = pokemon.stats[2].base_stat;
+        // velocidad
+        document.getElementById('stats_specialAttack').textContent = pokemon.stats[3].base_stat;
+        // altura
+        document.getElementById('stats_specialDefense').textContent = pokemon.stats[4].base_stat;
+        // peso
+        document.getElementById('stats_speed').textContent = pokemon.stats[5].base_stat;
+
+        statsForPokemon.showModal();
     }
     /**
      * funcion principal que permite buscar por temas o contenido
      */
 
     static API = {
-        getDataFromApi : (url) => {
+        getDataFromApi: (url) => {
             return new Promise((resolve, reject) => {
                 fetch(url)
                     .then(response => response.json())
@@ -36,7 +64,7 @@ class Page {
          * @param {*} es el paramemtro que puede ser un numero el el nombre del pokemoin
          * @returns data
          */
-        getPokemon : (param) => {
+        getPokemon: (param) => {
             return new Promise((resolve, reject) => {
                 fetch(`https://pokeapi.co/api/v2/pokemon/${param}`)
                     .then((response) => response.json())
@@ -372,9 +400,12 @@ class Page {
 
 
                 <div class="mt-8 py-4 border-b mx-6 border-gray-300">
-                    <h1 class="font-bold hover:text-yellow-500 text-3xl">
-                       ${pokemon.name}
+                <a onclick="user.searchAllStatsForPokemon(${pokemon.id})">
+                 <h1 class="font-bold hover:text-yellow-500 text-3xl">
+                       ${pokemon.name}              #${pokemon.id}
                     </h1>
+                <a>
+                   
                     <p class="text-red-500 hover:underline text-md font-semibold">
                         ${pokemon.generation}
                      <span class="text-gray-400">
@@ -415,12 +446,12 @@ class Page {
             // aca toca buscar la imagen de esa forma de pokemon
             if (counterForms % 2 == 0) {
                 // buscando la imagen de la forma del pokemon
-            // this.API.getDataFromApi(form.url).then((form) => {
-            //     var  formImageUrl = form.sprites.front_default;
-            //     });
+                // this.API.getDataFromApi(form.url).then((form) => {
+                //     var  formImageUrl = form.sprites.front_default;
+                //     });
 
 
-             htmlCode += `<li class="rounded-lg  hover:bg-gray-200 hover:text-white duration-300     px-2 py-1 text-xs font-bold">
+                htmlCode += `<li class="rounded-lg  hover:bg-gray-200 hover:text-white duration-300     px-2 py-1 text-xs font-bold">
                                <div class="flex flex-col">
                                 
                               <a onclick="user.showPokemonForm('${form.url}')"> 
@@ -560,9 +591,11 @@ class Page {
 
 
                 <div class="mt-8 py-4 border-b mx-6 border-gray-300">
-                    <h1 class="font-bold hover:text-yellow-500 text-3xl">
-                       ${pokemon.name}
+                  <a onclick="user.searchAllStatsForPokemon(${pokemon.id})">
+                 <h1 class="font-bold hover:text-yellow-500 text-3xl">
+                       ${pokemon.name}              #${pokemon.id}
                     </h1>
+                <a>
                     <p class="text-red-500 hover:underline text-md font-semibold">
                         ${pokemon.generation}
                      <span class="text-gray-400">
@@ -603,12 +636,12 @@ class Page {
             // aca toca buscar la imagen de esa forma de pokemon
             if (counterForms % 2 == 0) {
                 // buscando la imagen de la forma del pokemon
-            // this.API.getDataFromApi(form.url).then((form) => {
-            //     var  formImageUrl = form.sprites.front_default;
-            //     });
+                // this.API.getDataFromApi(form.url).then((form) => {
+                //     var  formImageUrl = form.sprites.front_default;
+                //     });
 
 
-             htmlCode += `<li class="rounded-lg  hover:bg-gray-200 hover:text-white duration-300     px-2 py-1 text-xs font-bold">
+                htmlCode += `<li class="rounded-lg  hover:bg-gray-200 hover:text-white duration-300     px-2 py-1 text-xs font-bold">
                                <div class="flex flex-col">
                                 
                               <a onclick="user.showPokemonForm('${form.url}')"> 

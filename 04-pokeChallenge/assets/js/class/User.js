@@ -4,6 +4,17 @@ class User {
         this.pokemonLimiter = 10;
     }
 
+
+    searchAllStatsForPokemon = (pokeID) =>{
+        Page.API.getPokemon(pokeID)
+            .then((data) => {
+                console.log(data);
+                Page.renderStatsOfPokemon(data);
+            });
+    }
+/**
+ * busca un pokemon 
+ */
     searchPokemon = (pokemonName) => {
         Page.API.getPokemon(pokemonName)
             .then((data) => {

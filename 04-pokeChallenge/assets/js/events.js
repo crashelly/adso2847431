@@ -9,6 +9,7 @@ generationSelectObj.addEventListener('change',()=>{
 searchPokemonForm.addEventListener('submit',(e)=>{
     // aca se previene que se ejnvie el formulñario
     e.preventDefault();
+    Page.hideWelcomeImages();
     let pokemonName = document.getElementById('searchPokemonInput').value;
     user.searchPokemon(pokemonName);
 
