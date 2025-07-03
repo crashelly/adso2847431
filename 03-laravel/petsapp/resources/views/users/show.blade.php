@@ -25,9 +25,9 @@
             <div class="flex gap-4 mx-auto ml-15 items-center">
                 <div id="upload"
                     class="mask mask-squircle w-36 cursor-pointer hover:scale-110 hover:border-gray-500 border   transition-transform">
-                    <img id="preview" src="{{ asset('images/'.$user->photo) }}" />
+                    <img id="preview" src="{{ asset('images/' . $user->photo) }}" />
                     <!-- <svg width="64px" class="mx-auto"  height="64px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M4 12H20M12 4V20" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg> -->
-                   
+
                 </div>
             </div>
 
@@ -114,6 +114,10 @@
 
         photo.addEventListener('change', function (e) {
             preview.src = window.URL.createObjectURL(this.files[0]);
-        })
+        });
+
+
+
+
     </script>
 @endsection

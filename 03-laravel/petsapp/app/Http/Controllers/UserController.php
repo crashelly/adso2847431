@@ -149,4 +149,9 @@ class UserController extends Controller
             //  return redirect()->route('users.index')->with('mensagge', 'Failed to delete user.');
         }
     }
+
+    public function search(Request $request){
+        $users = User::names($request->q)->paginate(10);
+        return view('users.search')->with('users',$users);
+    }
 }
