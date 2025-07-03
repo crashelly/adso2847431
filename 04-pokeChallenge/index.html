@@ -4,11 +4,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>PokeLand</title>
+  <title>PokeAdso</title>
   <!-- script de taiwlind -->
   <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
   <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
-
+  <link rel="stylesheet" href="assets/css/main.css">
   <!-- estilos de las bolitas que indican el tipo de pokemon
    -->
   <link rel="stylesheet" href="assets/css/typesStiles.css">
@@ -27,26 +27,25 @@
       <div>
         <!-- Team Section -->
         <div class="mt-24 text-center ">
-          <h3 id="formName_modal"  class="text-3xl font-bold text-red-500 hover:duration-300 hover:underline  mb-4">charizard </h3>
+          <h3 id="formName_modal" class="text-3xl font-bold text-red-500 hover:duration-300 hover:underline  mb-4">
+            charizard </h3>
           <h3 class="text-3xl font-bold text-red-400">FORM</h3>
-       
+
           <div class="flex flex-wrap justify-center gap-8">
             <!-- Team Member -->
             <div class="bg-white rounded-lg shadow-md p-6 max-w-xs text-center hover:shadow-xl transition">
-              <img id="frontFormImage"   class="w-24 h-24 rounded-full mx-auto mb-4" 
-                alt="imagen de adelante del pokemon">
-              <h4 id="frontDescription_modal"   class="text-lg font-medium text-gray-900">Alex Johnson</h4>
-              <p class="text-sm text-gray-500">ADELANTE</p>
+              <img id="frontFormImage" class="w-24 h-24 rounded-full mx-auto mb-4" alt="imagen de adelante del pokemon">
+              <h4 id="frontDescription_modal" class="text-lg font-medium text-gray-900">Alex Johnson</h4>
+              <div class="badge badge-soft badge-accent">ADELANTE</div>
             </div>
 
             <div class="bg-white rounded-lg shadow-md p-6 max-w-xs text-center hover:shadow-xl transition">
-              <img id="backFormImage"  class="w-24 h-24 rounded-full mx-auto mb-4" 
-                alt="vista desde atras del pokemon">
-              <h4 id="behindDescription_modal"  class="text-lg font-medium text-gray-900"></h4>
-              <p class="text-sm text-gray-500">ATRAS</p>
+              <img id="backFormImage" class="w-24 h-24 rounded-full mx-auto mb-4" alt="vista desde atras del pokemon">
+              <h4 id="behindDescription_modal" class="text-lg font-medium text-gray-900"></h4>
+              <div class="badge badge-soft badge-info">ATRAS</div>
             </div>
 
-           
+
           </div>
         </div>
       </div>
@@ -54,16 +53,61 @@
   </dialog>
 
 
+  <dialog id="pokemonNotFoundModal" class="modal">
+  <div class="modal-box">
+    <form method="dialog">
+      <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+    </form>
+   <h1 class="text-3xl text-red-400">Pokemon no encontrado lo siento</h1>
+   <!-- <h1 class="text-3xl text-red-400">Pokemon no encontrado lo siento</h1> -->
+  </div>
+</dialog>
 
 
   <!-- principalñ -->
-  <div class="bg-gray-800">
-    <select class="ml-20   mx-7  select select-warning" name="" id="generationsSelect"></select>
-  </div>
+  <nav>
 
-  <div id="pokemonsCardContainer" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2">
+    <div class="bg-gray-800 align-center  class flex flex-inline justify-between ">
+      <select class="ml-20 mt-5   mx-7  select select-warning" name="" id="generationsSelect"></select>
 
-  </div>
+
+      <div class="mt-5">
+        <form id="searchPokemonForm">
+          <label class="input" class="mt-3 w-80">
+            <svg class="h-[1em] opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+              <g stroke-linejoin="round" stroke-linecap="round" stroke-width="2.5" fill="none" stroke="currentColor">
+                <circle cx="11" cy="11" r="8"></circle>
+                <path d="m21 21-4.3-4.3"></path>
+              </g>
+            </svg>
+            <input class="w-80" id="searchPokemonInput" type="search" required
+              placeholder="Buscar pokemon por # o nombre" />
+              <button type="submit"></button>
+          </label>
+        </form>
+
+      </div>
+      <!-- esta es la cosa de busqueda de pokemon -->
+
+
+      <!-- esta esla letra de pokeados -->
+      <img src="assets/imgs/pokeados.png" class="w-80 h-20 object-fit" alt="">
+    </div>
+  </nav>
+
+  <main class="bg-blue-500 ">
+    <img class="welcomeImage" src="assets/imgs/alertUserImg.png" alt="">
+    <img class="welcomeImage" width="70px" height="70px" src="https://images7.alphacoders.com/592/thumb-1920-592678.jpg"
+      alt="">
+    <div id="pokemonsCardContainer" class="grid   grid-cols-1   md:grid-cols-2 lg:grid-cols-3 gap-2">
+
+
+    </div>
+    <div id="PokemonSearchResultContainer" class="flex items-center justify-center v   gap-2">
+
+
+    </div>
+  </main>
 
   <!-- <div class="flex flex-col justify-center items-center w-dvw h-dvh bg-gray-900">
   <!-- Card DailyDev -->

@@ -3,6 +3,25 @@ class User {
     constructor() {
         this.pokemonLimiter = 10;
     }
+
+    searchPokemon = (pokemonName) => {
+        Page.API.getPokemon(pokemonName)
+            .then((data) => {
+                // si trajo datos los trajo en un objeto
+
+                // renderiza los pokemones
+                Page.renderOnePokemonCard(data);
+
+
+            }).catch(() => {
+                
+                // si no trajo datos
+                // Page.renderNotFoundPokemon();
+                console.error("no encontre al pokemon");
+                Page.pokemonNotFound();
+
+            })
+    }
     /**
      * sirve para sacar las generaciones automaticamente
      */
@@ -28,6 +47,8 @@ class User {
         // limpiamos el contenedor de todos los pokemons
         document.getElementById('pokemonsCardContainer').innerHTML = '';
 
+        // oculto esa imagenes del inicio
+        Page.hideWelcomeImages();
         Page.API.getGeneration(generation)
             .then((generation) => {
                 let counter = 1;
