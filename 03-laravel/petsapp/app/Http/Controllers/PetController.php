@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Pet;
-use Illuminate\Validation\Rules\ImageFile;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File; // Importar la fachada File
 
 class PetController extends Controller
 {
@@ -13,9 +13,16 @@ class PetController extends Controller
      */
     public function index()
     {
-        $pets = Pet::paginate(10);
-
+        $pets = Pet::paginate(5);
         return view('pets.index')->with('pets', $pets);
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function create()
+    {
+        return view('pets.create');
     }
 
     /**
@@ -24,74 +31,126 @@ class PetController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'document' => ['required', 'numeric', 'unique:' . User::class],
-            'fullname' => ['required', 'string'],
-            'gender' => ['required'],
-            'birthdate' => ['required', 'date'],
-            'photo' => ['required', 'image'],
-            'phone' => ['required'],
-            'email' => ['required', 'lowercase', 'email', 'unique:' . User::class],
-            'password' => ['required', 'confirmed', 'min:4'],
+            'name'        => ['required', 'string'],
+            'imagen'      => ['required', 'image'], 
+            'kind'        => ['required', 'string'],
+            'weight'      => ['required', 'numeric'],
+            'age'         => ['required', 'numeric'],
+            'breed'       => ['required', 'string'],
+            'location'    => ['required', 'string'],
+            'description' => ['nullable', 'string'],
         ]);
 
-        if ($validated) {
-            // dd($request->all());
-            if($request->hasFile('photo')){
-                $photo = time().''.$request->photo->extension();
-                $request->photo->move(public_path('image').$photo);
-            }
-            $user = new User;
-
-            $user->document = $request->document;
-            $user->fullname  = $request->fullname;
-            $user->gender  = $request->gender;
-            $user->birthdate  = $request->birthdate;
-            $user->photo  = $photo;
-            $user->phone  = $request->phone;
-            $user->email  = $request->email;
-            $user->password  =bcrypt($request->password);
-
-            // guarda los datos
-            if($user->save()){
-                return redirect('users')->with('messagge','the user'.$user->fullname.'was successfuly added');
+        if($validated) {
+            $imagen = null; 
+            if($request->hasFile('imagen')) { 
+                $imagen = time().'.'.$request->imagen->extension(); 
+                $request->imagen->move(public_path('images'), $imagen); 
+            } else {
+                $imagen = 'no-image.png'; 
             }
 
+            $pet = new Pet;
+            $pet->name        = $request->name;
+            $pet->image      = $imagen; 
+            $pet->kind        = $request->kind;
+            $pet->weight      = $request->weight;
+            $pet->age         = $request->age;
+            $pet->breed       = $request->breed;
+            $pet->location    = $request->location;
+            $pet->description = $request->description;
+
+            if($pet->save()) {
+                return redirect('pets')->with('message', 'La mascota: '.$pet->name.' fue añadida correctamente!');
+            }
         }
-        
     }
 
-
-    /**
-     * el de create
-     *
-     * @param string $id
-     * @return void
-     */
-
-     public function create(){
-        return view('pets.create');
-     }
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Pet $pet)
     {
-        //
+        return view('pets.show')->with('pet', $pet);
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit(Pet $pet)
+    {
+        return view('pets.edit')->with('pet', $pet);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Pet $pet)
     {
-        //
+        $validated = $request->validate([
+            'name'        => ['required', 'string'],
+            // 'imagen' es opcional en la validación de update si no se va a cambiar
+            'kind'        => ['required', 'string'],
+            'weight'      => ['required', 'numeric'],
+            'age'         => ['required', 'numeric'],
+            'breed'       => ['required', 'string'],
+            'location'    => ['required', 'string'],
+            'description' => ['nullable', 'string'],
+        ]);
+
+        if($validated) {
+            $imagen = $request->originimagen; 
+            if($request->hasFile('imagen')) { 
+                // Eliminar la imagen original solo si no es la imagen por defecto y si el archivo existe
+                if($request->originimagen && $request->originimagen != 'no-image.png' && File::exists(public_path('images/').$request->originimagen)) {
+                    File::delete(public_path('images/').$request->originimagen);
+                }
+                $imagen = time().'.'.$request->imagen->extension(); 
+                $request->imagen->move(public_path('images'), $imagen); 
+            } else {
+                // Si no se sube una nueva imagen, mantener la original
+                $imagen = $request->originimagen;
+            }
+
+            $pet->name        = $request->name;
+            $pet->image      = $imagen; 
+            $pet->kind        = $request->kind;
+            $pet->weight      = $request->weight;
+            $pet->age         = $request->age;
+            $pet->breed       = $request->breed;
+            $pet->location    = $request->location;
+            $pet->description = $request->description;
+
+            if($pet->save()) {
+                return redirect('pets')->with('message', 'The pet: '.$pet->name.' It was edited successfully!');
+            }
+        }
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Pet $pet)
     {
-        //
+        if($pet->delete()) {
+            $imagenPath = public_path('images/' . $pet->imagen); 
+
+            // Eliminar la imagen solo si no es la imagen por defecto, si existe el archivo
+            // y si no es un directorio.
+            if ($pet->imagen && $pet->imagen != 'no-image.png' && File::exists($imagenPath) && !File::isDirectory($imagenPath)) {
+                File::delete($imagenPath);
+            }
+            return redirect('pets')->with('message', 'The pet: '.$pet->name.' was successfully deleted!');
+        }
+        return redirect('pets')->with('message', 'The pet could not be deleted.');
+    }
+
+    public function search(Request $request)
+    {
+        $q = $request->input('q');
+        $pets = Pet::where('name', 'LIKE', "%{$q}%")
+                    ->orWhere('kind', 'LIKE', "%{$q}%")
+                    ->get();
+        return view('pets.search')->with('pets', $pets);
     }
 }

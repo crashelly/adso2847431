@@ -82,11 +82,11 @@ Route::delete('pet/{id}', function () {
 
 // this is the edit route for pets
 // List the users info for
-Route::get('edit/pet/{id}', function () {
-    $user = User::find(request()->id);
-    //dd($users->toArray());
-    return view('users.edit')->with('user', $user);
-});
+// Route::get('edit/pet/{id}', function () {
+//     $user = User::find(request()->id);
+//     //dd($users->toArray());
+//     return view('users.edit')->with('user', $user);
+// });
 
 Route::get('/challenge/users', function () {
     $users = User::limit(20)->get();
@@ -120,12 +120,17 @@ Route::get('view/blade', function () {
 });
 
 
+// Route::get('show/pet/{id}', function () {
+//     $pet = App\Models\Pet::find(request()->id);
+//     //dd($pet->toArray());
+//     return view('show-pet')->with('pet', $pet);
+// });
+
 Route::get('show/pet/{id}', function () {
     $pet = App\Models\Pet::find(request()->id);
     //dd($pet->toArray());
     return view('show-pet')->with('pet', $pet);
 });
-
 
 Route::get('/dashboard', function (Request $request) {
 
