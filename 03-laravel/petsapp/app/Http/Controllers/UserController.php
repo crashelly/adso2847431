@@ -45,24 +45,24 @@ class UserController extends Controller
 
         if ($validated) {
             // dd($request->all());
-            if($request->hasFile('photo')){
-                $photo = time().''.$request->photo->extension();
-                $request->photo->move(public_path('image').$photo);
+            if ($request->hasFile('photo')) {
+                $photo = time() . '' . $request->photo->extension();
+                $request->photo->move(public_path('image') . $photo);
             }
             $user = new User;
 
             $user->document = $request->document;
-            $user->fullname  = $request->fullname;
-            $user->gender  = $request->gender;
-            $user->birthdate  = $request->birthdate;
-            $user->photo  = $photo;
-            $user->phone  = $request->phone;
-            $user->email  = $request->email;
-            $user->password  =bcrypt($request->password);
+            $user->fullname = $request->fullname;
+            $user->gender = $request->gender;
+            $user->birthdate = $request->birthdate;
+            $user->photo = $photo;
+            $user->phone = $request->phone;
+            $user->email = $request->email;
+            $user->password = bcrypt($request->password);
 
             // guarda los datos
-            if($user->save()){
-                return redirect('users')->with('messagge','the user'.$user->fullname.'was successfuly added');
+            if ($user->save()) {
+                return redirect('users')->with('messagge', 'the user' . $user->fullname . 'was successfuly added');
             }
 
         }
@@ -74,13 +74,13 @@ class UserController extends Controller
     public function show(User $user)
     {
         // dd($user->toArray());
-        return view('users.show')->with('user',$user);
+        return view('users.show')->with('user', $user);
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-   /**
+    /**
      * Show the form for editing the specified resource.
      */
     public function edit(User $user)
@@ -131,7 +131,7 @@ class UserController extends Controller
 
         return redirect()->route('users.index')->with('message', 'Usuario actualizado correctamente');
     }
- 
+
     /**
      * Remove the specified resource from storage.
      */
@@ -139,10 +139,10 @@ class UserController extends Controller
     {
         try {
             // dd($user);
-            if ( $user->delete()) {
+            if ($user->delete()) {
                 # code...
                 return redirect('users')->with('messagge', 'The user ' . $user->fullname . ' was successfully deleted');
-            }else{
+            } else {
                 throw new \Exception('Failed to delete user.');
             }
         } catch (\Throwable $th) {
@@ -150,8 +150,18 @@ class UserController extends Controller
         }
     }
 
-    public function search(Request $request){
-        $users = User::names($request->q)->paginate(10);
-        return view('users.search')->with('users',$users);
+    
+    public function search(Request $request)
+    {
+        // $users = User::names($request->q)->paginate(10);
+        // return view('users.search')->with('users',$users);
+        $q = $request->input('q');
+        $users = User::where('fullname', 'LIKE', "%{$q}%")
+            // ->orWhere('kind', 'LIKE', "%{$q}%")
+            ->get();
+            
+        return view('users.search')->with('users', $users);
+
+
     }
 }

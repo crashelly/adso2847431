@@ -203,6 +203,7 @@
             let query = this.value
             let token = document.querySelector('input[name=_token]')
 
+            console.log(query);
             fetch('pets/search', { 
                     method: 'POST',
                     headers: {

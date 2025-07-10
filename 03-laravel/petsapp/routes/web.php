@@ -155,8 +155,10 @@ Route::middleware('auth')->group(function () {
         'pets' => PetController::class,
         //'adoptions' => AdoptionController::class,
     ]);
-
-    Route::post('users/seach', [UserController::class, 'search']);
+Route::resource('users', UserController::class);
+    Route::post('users/search', [UserController::class, 'search']);
+    Route::resource('pets', PetController::class); 
+    Route::post('pets/search', [PetController::class, 'search']); 
 
 });
 

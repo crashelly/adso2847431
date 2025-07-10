@@ -13,7 +13,7 @@
     </form>
     <div class="flex flex-col ">
       <div>
-        <h1>Estas seguro de que quieres eliminar a <span id="User"></span> </h1>
+      <h1>Estas seguro de que quieres eliminar a <span id="User"></span> </h1>
       </div>
       <div class="flex flex-inline">
       <button>
@@ -55,7 +55,7 @@
     <li><a class="btn btn-sm sm:btn-md btn-neutral btn-outline">Export Excel</a></li>
 
     <li><a class="btn btn-sm sm:btn-md btn-neutral btn-outline">
-      <input class="py-2"  type="search" name="qsearch" id="qsearcher" placeholder="Search ...">
+      <input class="py-2" type="search" name="qsearch" id="qsearcher" placeholder="Search ...">
     </a></li>
   </ul>
 
@@ -108,11 +108,13 @@
       </a>
       <!-- boton de eliminar? -->
       <a href="javascript:;" class="btn btn-outline btn-square btn-error btn-xs">
-      <form id="form_{{ $user->id }}"  action="{{ route('user.destroy', $user->id) }}" method="POST">
+      <form id="form_{{ $user->id }}" action="{{ route('user.destroy', $user->id) }}" method="POST">
         @csrf
         @method('DELETE')
-        <button type="button" class="btn-delete" data-username="{{ $user->fullname }}"  onclick="showConfirmation({ username: '{{ $user->fullname  }} ' , formId : 'form_{{ $user->id }}'  })"> <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-        stroke-width="1.5" stroke="currentColor" class="size-4">
+        <button type="button" class="btn-delete" data-username="{{ $user->fullname }}"
+        onclick="showConfirmation({ username: '{{ $user->fullname  }} ' , formId : 'form_{{ $user->id }}'  })">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+        stroke="currentColor" class="size-4">
         <path stroke-linecap="round" stroke-linejoin="round"
         d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0" />
         </svg></button>
@@ -164,36 +166,38 @@
     messaggeModal.showModal();
 
 
-    
+
 
 
     @endif
 
     // obtengo todos los botones
-    const qSearch  = document.getElementById('qsearcher');
-    
-    alert("PROBANDO");
-    qSearch.addEventListener('keyup',function(event){
-      event.preventDefault();
-      let query = this.value
-      let token = document.querySelector('input[name=_token]');
+    const qSearch = document.getElementById('qsearcher');
 
-      // alert(query + '__ '+ token.value);
-      // console.log(query + '__ '+ token.value);
-
-      fetch('users/search', {
-        method : 'POST',
-        headers : {
-          'Content-type':'application/json',
-          'Accept' : '',
-          'X-CSRF-TOKEN' :  'token.value',
-        },
-        
-      }).then(response =>{
-        
-      })
-      .then((data)=>{
-
+    // alert("PROBANDO");
+    qSearch.addEventListener('keyup', function (event) {
+    event.preventDefault();
+    let query = this.value;
+    let token = document.querySelector('input[name=_token]');
+console.log(query);
+    // alert(query + '__ '+ token.value);
+    // console.log(query + '__ '+ token.value);
+    let list = document.getElementById('list');
+    fetch('users/search', {
+      method: 'POST',
+      headers: {
+      'Content-type': 'application/json',
+      'Accept': '',
+      'X-CSRF-TOKEN': token.value,
+      },
+      body: {
+      'q': query
+      }
+    }).then(
+      response => response.text()
+    )
+      .then((data) => {
+      list.innerHTML = data
       })
     })
   </script>
